@@ -1,0 +1,96 @@
+# 工作流名称
+name: Test and deploy
+
+# 触发条件：当代码推送到 master 分支时执行
+on:
+  push:
+    branches:
+      - master
+
+# 定义工作流中的任务
+jobs:
+  # 测试任务：运行代码检查和测试
+  test:
+    name: Run Lint and Test
+    # 在最新的 Ubuntu 系统上运行
+    runs-on: ubuntu-latest
+
+    # 定义测试任务的步骤
+    steps:
+      # 步骤1：检出代码仓库
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # 步骤2：设置 Node.js 环境
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      # 步骤3：安装 pnpm 包管理器
+      - name: Install pnpm 
+        run: npm install -g pnpm
+
+      # 步骤4：安装项目依赖（使用冻结的 lockfile 确保依赖版本一致）
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 步骤5：运行测试套件
+      - name: Run tests
+        run: npm run test
+
+  # 构建任务：构建文档网站
+  build:
+    name: Build docs
+    runs-on: ubuntu-latest
+    # 依赖测试任务，只有测试通过才会执行构建
+    needs: test
+
+    steps:
+      # 步骤1：检出代码仓库
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # 步骤2：设置 Node.js 环境
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      # 步骤3：安装 pnpm 包管理器
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # 步骤4：安装项目依赖
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 步骤5：构建文档网站（使用 VitePress 或其他静态站点生成器）
+      - name: Build docs
+        run: npm run docs:build
+
+      # 步骤6：将构建产物上传为工作流制品，供后续步骤使用
+      - name: Upload docs
+        uses: actions/upload-artifact@v3
+        with:
+          name: docs  # 制品名称
+          path: ./packages/docs/.vitepress/dist  # 构建输出目录
+
+  # 部署任务：部署到 GitHub Pages
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    # 依赖构建任务，只有构建成功才会执行部署
+    needs: build
+    
+    steps:
+      # 步骤1：下载之前上传的构建制品
+      - name: Download docs
+        uses: actions/download-artifact@v3
+        with:
+          name: docs  # 要下载的制品名称
+
+      # 步骤2：使用 GitHub Pages 部署行动将文档部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          # 使用 GitHub Token 进行身份验证
+          github_token: ${{ secrets.GH_TOKEN }}
+          # 指定要发布的目录（当前目录，因为制品已下载到当前目录）
+          publish_dir: .
