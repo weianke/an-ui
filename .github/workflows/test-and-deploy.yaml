@@ -19,11 +19,11 @@ jobs:
     steps:
       # 步骤1：检出代码仓库
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # 步骤2：设置 Node.js 环境
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
 
       # 步骤3：安装 pnpm 包管理器
       - name: Install pnpm 
@@ -47,11 +47,11 @@ jobs:
     steps:
       # 步骤1：检出代码仓库
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # 步骤2：设置 Node.js 环境
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
 
       # 步骤3：安装 pnpm 包管理器
       - name: Install pnpm
@@ -67,7 +67,7 @@ jobs:
 
       # 步骤6：将构建产物上传为工作流制品，供后续步骤使用
       - name: Upload docs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docs  # 制品名称
           path: ./packages/docs/.vitepress/dist  # 构建输出目录
@@ -82,7 +82,7 @@ jobs:
     steps:
       # 步骤1：下载之前上传的构建制品
       - name: Download docs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docs  # 要下载的制品名称
 
