@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "An-UI",
   description: "高仿 ElementPlus",
-  base: '/an-UI/',
+  base: '/an-ui/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
