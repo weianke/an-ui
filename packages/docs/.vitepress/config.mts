@@ -5,6 +5,7 @@ export default defineConfig({
   title: "An-UI 组件库",
   description: "基于Vue3 高仿 element-ui 组件库",
   base: '/an-ui/',
+   appearance: false, // 关闭 darkMode @todo 深色模式完成后打开
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
   nav: [
@@ -14,12 +15,10 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
+        text: "指南",
+        collapsed: false,
+        items: [{ text: "快速开始", link: "/get-started" }],
+      },
     ],
 
     socialLinks: [
