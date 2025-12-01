@@ -5,14 +5,19 @@ export default defineConfig({
   title: "An-UI 组件库",
   description: "基于Vue3 高仿 element-ui 组件库",
   base: '/an-ui/',
-   appearance: false, // 关闭 darkMode @todo 深色模式完成后打开
+  appearance: false, // 关闭 darkMode @todo 深色模式完成后打开
+  
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-  nav: [
+    nav: [
       { text: "开始使用", link: "/get-started" },
       { text: "组件", link: "/components/button" },
     ],
-
+    // 搜索
+    search: {
+      provider: "local",
+    },
+    
     sidebar: [
       {
         text: "指南",
