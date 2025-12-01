@@ -2,14 +2,14 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "An-UI",
-  description: "高仿 ElementPlus",
+  title: "An-UI 组件库",
+  description: "基于Vue3 高仿 element-ui 组件库",
   base: '/an-ui/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+  nav: [
+      { text: "开始使用", link: "/get-started" },
+      { text: "组件", link: "/components/button" },
     ],
 
     sidebar: [
@@ -23,7 +23,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/weianke/an-ui' }
     ]
   }
 })
