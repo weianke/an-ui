@@ -1,8 +1,9 @@
 
 <script setup lang="ts">
 import { throttle } from 'lodash-es';
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import AnIcon from '../Icon/Icon.vue';
+import { BUTTON_GROUP_CTX_KEY } from "./constants";
 import type { ButtonEmits, ButtonInstance, ButtonProps } from './types';
 defineOptions({
   name: "AnButton"
@@ -19,7 +20,13 @@ const emits = defineEmits<ButtonEmits>();
 
 const slots = defineSlots();
 
-const _ref = ref<HTMLElement | null>(null);
+const _ref = ref<HTMLButtonElement>();
+const buttonGroupCtx = inject(BUTTON_GROUP_CTX_KEY, void 0);
+const size = computed(() => buttonGroupCtx?.size ?? props.size ?? "");
+const type = computed(() => buttonGroupCtx?.type ?? props.type ?? "");
+const disabled = computed(
+  () => props.disabled || buttonGroupCtx?.disabled || false
+);
 
 const handleBtnClick = (e: MouseEvent) =>  emits('click', e);
 // 使用computed来动态创建点击处理函数
@@ -31,9 +38,11 @@ const iconStyle = computed(() => ({
 
 
 defineExpose<ButtonInstance>({
-  ref: _ref
-})
-
+  ref: _ref,
+  disabled,
+  size,
+  type,
+});
 </script>
 
 <template>

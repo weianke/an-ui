@@ -1,7 +1,8 @@
-import { AnButton, AnIcon } from "@an-ui/components";
+import { AnButton, AnButtonGroup, AnIcon } from "@an-ui/components";
 import type { Plugin } from "vue";
 
 export default [
     AnButton,
-    AnIcon
+    AnIcon,
+    AnButtonGroup
 ] as Plugin[];

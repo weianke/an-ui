@@ -1,6 +1,5 @@
 
-
-import type { Component, Ref } from "vue";
+import { type Component, type ComputedRef, type Ref } from "vue";
 /**
  * Button types for styling purposes.
  */
@@ -30,5 +29,20 @@ export interface ButtonEmits {
 }
 
 export interface ButtonInstance {
-    ref: Ref<HTMLElement | null>;
+  ref: Ref<HTMLButtonElement | void>;
+  disabled: ComputedRef<boolean>;
+  size: ComputedRef<string>;
+  type: ComputedRef<string>;
+}
+
+export interface ButtonGroupProps {
+  size?: ButtonSize;
+  type?: ButtonType;
+  disabled?: boolean;
+}
+
+export interface ButtonGroupContext {
+  size?: ButtonSize;
+  type?: ButtonType;
+  disabled?: boolean;
 }
