@@ -1,5 +1,7 @@
+import "@an-ui/theme/index.css";
 import { makeInstaller } from "@an-ui/utils";
 import components from "./components";
+
 
 const installer = makeInstaller(components);
 
