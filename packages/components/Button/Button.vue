@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import { throttle } from 'lodash-es';
 import { computed, ref } from 'vue';
+import AnIcon from '../Icon/Icon.vue';
 import type { ButtonEmits, ButtonInstance, ButtonProps } from './types';
 defineOptions({
   name: "AnButton"
@@ -22,12 +23,11 @@ const _ref = ref<HTMLElement | null>(null);
 
 const handleBtnClick = (e: MouseEvent) =>  emits('click', e);
 // 使用computed来动态创建点击处理函数
-const handleBtnClickThrottle = computed(() => {
-  if (props.useThrottle && props.throttleDuration > 0) {
-    return throttle(handleBtnClick, props.throttleDuration);
-  }
-  return handleBtnClick;
-});
+const handleBtnClickThrottle = throttle(handleBtnClick, props.throttleDuration);
+
+const iconStyle = computed(() => ({
+  marginRight: slots.default ? "6px" : "0px",
+}));
 
 
 defineExpose<ButtonInstance>({
@@ -52,11 +52,29 @@ defineExpose<ButtonInstance>({
       'is-disabled': disabled,
       'is-loading': loading,
     }"
+    :autofocus="autofocus"
     @click="
       (e: MouseEvent) =>
         useThrottle ? handleBtnClickThrottle(e) : handleBtnClick(e)
     "
   >
+   <template v-if="loading">
+      <slot name="loading">
+        <an-icon
+          class="loading-icon"
+          :icon="loadingIcon ?? 'spinner'"
+          :style="iconStyle"
+          size="1x"
+          spin
+        />
+      </slot>
+    </template>
+    <an-icon
+      :icon="icon"
+      size="1x"
+      :style="iconStyle"
+      v-if="icon && !loading"
+    />
     <slot></slot>
   </component>
 </template>

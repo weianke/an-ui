@@ -20,7 +20,7 @@ export interface ButtonProps {
     plain?: boolean;
     round?: boolean;
     loadingIcon?: string;
-    autoFocus?: boolean;
+    autofocus?: boolean;
     useThrottle?: boolean;
     throttleDuration?: number;
 }
