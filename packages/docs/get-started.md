@@ -54,7 +54,7 @@ An-UI 提供了基于 ES Module 的开箱即用的 Tree Shaking 功能。
 
 ## 亮点
 
-::: details open
+::: details :open
 - Vite + Vitest + Vitepress 工具链
 - monorepo 分包管理
 - github actions 实现 CI/CD 自动化部署
