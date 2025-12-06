@@ -31,7 +31,7 @@ createApp(App).use(AnUI).mount('#app')
 
 ```vue
 <template>
-  <er-button>我是 Button</er-button>
+  <an-button>我是 Button</an-button>
 </template>
 ```
 
@@ -42,7 +42,7 @@ An-UI 提供了基于 ES Module 的开箱即用的 Tree Shaking 功能。
 
 ```vue
 <template>
-  <er-button>我是 Button</er-button>
+  <an-button>我是 Button</an-button>
 </template>
 <script>
   import { AnButton } from 'an-ui'
