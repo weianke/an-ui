@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { provide, reactive, toRef } from "vue";
-import { BUTTON_GROUP_CTX_KEY } from "./constants";
-import type { ButtonGroupProps } from "./types";
+import { provide, reactive, toRef } from 'vue';
+import { BUTTON_GROUP_CTX_KEY } from './constants';
+import type { ButtonGroupProps } from './types';
 
 defineOptions({
-  name: "AnButtonGroup",
+  name: 'AnButtonGroup',
 });
 const props = defineProps<ButtonGroupProps>();
 
 provide(
   BUTTON_GROUP_CTX_KEY,
   reactive({
-    size: toRef(props, "size"),
-    type: toRef(props, "type"),
-    disabled: toRef(props, "disabled"),
-  })
+    size: toRef(props, 'size'),
+    type: toRef(props, 'type'),
+    disabled: toRef(props, 'disabled'),
+  }),
 );
 </script>
 
@@ -25,5 +25,5 @@ provide(
 </template>
 
 <style scoped>
-@import "./style.css";
+@import './style.css';
 </style>

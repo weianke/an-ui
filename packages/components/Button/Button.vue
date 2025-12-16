@@ -1,20 +1,23 @@
-
 <script setup lang="ts">
 import { throttle } from 'lodash-es';
 import { computed, inject, ref } from 'vue';
 import AnIcon from '../Icon/Icon.vue';
-import { BUTTON_GROUP_CTX_KEY } from "./constants";
-import type { ButtonEmits, ButtonInstance, ButtonProps } from './types';
+import { BUTTON_GROUP_CTX_KEY } from './constants';
+import type {
+  ButtonEmits,
+  ButtonInstance,
+  ButtonProps,
+} from './types';
 defineOptions({
-  name: "AnButton"
-})
+  name: 'AnButton',
+});
 
-const props = withDefaults(defineProps<ButtonProps>(),{
+const props = withDefaults(defineProps<ButtonProps>(), {
   tag: 'button',
   nativeType: 'button',
   useThrottle: true,
   throttleDuration: 500,
-})
+});
 
 const emits = defineEmits<ButtonEmits>();
 
@@ -22,20 +25,26 @@ const slots = defineSlots();
 
 const _ref = ref<HTMLButtonElement>();
 const buttonGroupCtx = inject(BUTTON_GROUP_CTX_KEY, void 0);
-const size = computed(() => buttonGroupCtx?.size ?? props.size ?? "");
-const type = computed(() => buttonGroupCtx?.type ?? props.type ?? "");
+const size = computed(
+  () => buttonGroupCtx?.size ?? props.size ?? '',
+);
+const type = computed(
+  () => buttonGroupCtx?.type ?? props.type ?? '',
+);
 const disabled = computed(
-  () => props.disabled || buttonGroupCtx?.disabled || false
+  () => props.disabled || buttonGroupCtx?.disabled || false,
 );
 
-const handleBtnClick = (e: MouseEvent) =>  emits('click', e);
+const handleBtnClick = (e: MouseEvent) => emits('click', e);
 // 使用computed来动态创建点击处理函数
-const handleBtnClickThrottle = throttle(handleBtnClick, props.throttleDuration);
+const handleBtnClickThrottle = throttle(
+  handleBtnClick,
+  props.throttleDuration,
+);
 
 const iconStyle = computed(() => ({
-  marginRight: slots.default ? "6px" : "0px",
+  marginRight: slots.default ? '6px' : '0px',
 }));
-
 
 defineExpose<ButtonInstance>({
   ref: _ref,
@@ -46,7 +55,7 @@ defineExpose<ButtonInstance>({
 </script>
 
 <template>
-  <component 
+  <component
     :ref="_ref"
     :is="tag"
     class="er-button"
@@ -67,7 +76,7 @@ defineExpose<ButtonInstance>({
         useThrottle ? handleBtnClickThrottle(e) : handleBtnClick(e)
     "
   >
-   <template v-if="loading">
+    <template v-if="loading">
       <slot name="loading">
         <an-icon
           class="loading-icon"
